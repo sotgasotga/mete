@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
     save!
   end
 
-  def buy(drink)
-    self.balance -= drink.price
+  def buy(drink, bar = false)
+    self.balance -= drink.price unless bar
     @purchased_drink = drink
     save!
   end

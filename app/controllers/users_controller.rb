@@ -106,7 +106,7 @@ class UsersController < ApplicationController
   def buy
     @user = User.find(params[:id])
     @drink = Drink.find(params[:drink])
-    buy_drink
+    buy_drink params[:bar]
   end
   
   # POST /users/1/buy_barcode
@@ -152,16 +152,23 @@ class UsersController < ApplicationController
   end
 
   private
-  
-  def buy_drink
+
+  def buy_drink bar=false
     unless @drink.active?
       @drink.active = true
       @drink.save!
       flash[:info] = "The drink you just bought has been set to 'available'."
     end
-    @user.buy(@drink)
-    flash[:success] = "You just bought a drink and your new balance is #{@user.balance}. Thank you."
-    if (@user.balance < 0) then
+
+    @user.buy(@drink, bar)
+
+    unless bar
+      flash[:success] = "You just bought a drink not in bar and your new balance is #{@user.balance}. Thank you."
+    else
+      flash[:success] = "You just bought a drink in bar and your new balance is #{@user.balance}. Thank you."
+    end
+
+    if (not bar and @user.balance < 0) then
       flash[:warning] = "Your balance is below zero. Remember to compensate as soon as possible."
     end
     warn_user_if_audit
