@@ -154,6 +154,7 @@ class UsersController < ApplicationController
   private
 
   def buy_drink bar=false
+    bar = bar == "true"
     unless @drink.active?
       @drink.active = true
       @drink.save!
@@ -161,13 +162,11 @@ class UsersController < ApplicationController
     end
 
     @user.buy(@drink, bar)
-
     unless bar
       flash[:success] = "You just bought a drink not in bar and your new balance is #{@user.balance}. Thank you."
     else
       flash[:success] = "You just bought a drink in bar and your new balance is #{@user.balance}. Thank you."
     end
-
     if (not bar and @user.balance < 0) then
       flash[:warning] = "Your balance is below zero. Remember to compensate as soon as possible."
     end
