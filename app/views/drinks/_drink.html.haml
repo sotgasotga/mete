@@ -11,20 +11,18 @@
         = show_amount drink.price
 
 .modal.fade{:id => "buyModal#{drink.id}", :tabindex => "-1", :role => "dialog"}
-  <div class="modal-dialog" role="document">
-  <div class="modal-content">
-  <div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title">Modal title</h4>
-  </div>
-  <div class="modal-body">
-  Bar oder vom Guthaben?
-  </div>
-  <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  = buy_user_path(@user, :drink => drink.id, :bar => true)
-  = link_to("In Bar", buy_user_path(@user, :drink => drink.id, :bar => true) || '#')
-  = link_to("Vom Guthaben", buy_user_path(@user, :drink => drink.id, :bar => false) || '#')
-  </div>
-  </div>
-  </div>
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h1.modal-title Bar oder vom Guthaben?
+      .modal-body
+        = link_to(buy_user_path(@user, :drink => drink.id, :bar => true) || '#') do
+          .panel.panel-default.text-center
+            .panel-body
+              %h2
+                %strong In Bar
+        = link_to(buy_user_path(@user, :drink => drink.id, :bar => false) || '#') do
+          .panel.panel-default.text-center
+            .panel-body
+              %h2
+                %strong Vom Guthaben
