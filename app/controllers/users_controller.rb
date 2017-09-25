@@ -106,7 +106,7 @@ class UsersController < ApplicationController
   def buy
     @user = User.find(params[:id])
     @drink = Drink.find(params[:drink])
-    buy_drink params[:bar]
+    buy_drink params[:bar] == "true"
   end
   
   # POST /users/1/buy_barcode
@@ -154,7 +154,6 @@ class UsersController < ApplicationController
   private
 
   def buy_drink bar=false
-    bar = bar == "true"
     unless @drink.active?
       @drink.active = true
       @drink.save!
