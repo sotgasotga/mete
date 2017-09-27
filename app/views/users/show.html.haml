@@ -18,7 +18,8 @@
 .row
   .col-xs-3.col-sm-2.col-md-1
     = gravatar(@user)
-  .col-xs-9.col-sm-10.col-md-11
+  /TODO smaller screens
+  .col-md-3
     %dl.dl-horizontal
       %dt
         = model_class.human_attribute_name(:email)
@@ -28,7 +29,20 @@
         = model_class.human_attribute_name(:balance)
       %dd
         = show_amount @user.balance
-
+  .col-md-2
+    = link_to(deposit_user_path(@user)) do
+      .panel.panel-default.text-center
+        .panel-body
+          = image_tag "money-bag-green.png", size: "64x64", alt: 'deposit'
+        .panel-footer
+          Deposit Money
+  .col-md-2
+    = link_to(retrieve_user_path(@user)) do
+      .panel.panel-default.text-center
+        .panel-body
+          = image_tag "money-bag-red.png", size: "64x64", alt: 'retrieve'
+        .panel-footer
+          retrieve Money
 %hr
 
 %form{:method => "POST", :action => buy_barcode_user_path}
@@ -40,6 +54,3 @@
 
 .row.drinks
   = render @drinks, :locals => {:user => @user}
-
-.row
-  = render partial: 'bills'

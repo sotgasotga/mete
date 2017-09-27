@@ -91,12 +91,42 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1/deposit?amount=100
-  # GET /users/1/deposit.json?amount=100
-  def deposit
+# GET /users/1/deposit
+# GET /users/1/deposit.json
+def deposit
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+# GET /users/1/retrieve
+# GET /users/1/retrieve.json
+def retrieve
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+end
+
+  # PATCH /users/1/deposit?amount=100
+  # PATCH /users/1/deposit.json?amount=100
+  def deposit_patch
     @user = User.find(params[:id])
     @user.deposit(BigDecimal.new(params[:amount]))
     flash[:success] = "You just deposited some money and your new balance is #{@user.balance}. Thank you."
+    warn_user_if_audit
+    no_resp_redir @user
+  end
+
+  # PATCH /users/1/retrieve?amount=100
+  # PATCH /users/1/retrieve.json?amount=100
+  def retrieve_patch
+    @user = User.find(params[:id])
+    @user.payment(BigDecimal.new(params[:amount]))
+    flash[:success] = "You just retrieved some money and your new balance is #{@user.balance}. Thank you."
     warn_user_if_audit
     no_resp_redir @user
   end

@@ -7,6 +7,9 @@ Mete::Application.routes.draw do
   resources :users do
     member do
       get 'deposit'
+      patch 'deposit' => 'users#deposit_patch'
+      get 'retrieve'
+      patch 'retrieve' => 'users#retrieve_patch'
       get 'payment'
       get 'buy'
       post 'buy_barcode'
