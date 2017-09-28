@@ -32,6 +32,7 @@ gem 'mini_magick', :github => 'minimagick/minimagick'
 gem 'unicorn'
 gem 'autoprefixer-rails'
 gem 'rails-controller-testing'
+gem 'devise'
 
 gem "codeclimate-test-reporter", '~> 1', group: :test, require: nil
 

@@ -1,4 +1,5 @@
 Mete::Application.routes.draw do
+  devise_for :admins
   resources :drinks
   resources :barcodes
 

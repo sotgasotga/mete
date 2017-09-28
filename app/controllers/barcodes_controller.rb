@@ -1,4 +1,8 @@
 class BarcodesController < ApplicationController
+  before_action :authenticate_admin!, only: [:index, :new, :create, :destroy]
+  after_action only: [:create, :destroy] do
+     sign_out(current_admin) if current_admin
+  end
   # GET /barcodes
   # GET /barcodes.json
   def index

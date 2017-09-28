@@ -1,4 +1,8 @@
 class DrinksController < ApplicationController
+  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
+  after_action only: [:create, :update, :destroy] do
+     sign_out(current_admin) if current_admin
+  end
   # GET /drinks
   # GET /drinks.json
   def index
@@ -40,8 +44,8 @@ class DrinksController < ApplicationController
     @drink = Drink.new(drink_params)
     respond_to do |format|
       if @drink.save
-        format.html { redirect_to @drink, notice: 'Drink was successfully created.' }
-        format.json { render json: @drink, status: :created, location: @drink }
+        format.html { redirect_to drinks_url, notice: 'Drink was successfully created.' }
+        format.json { render json: drinks_url, status: :created, location: @drink }
       else
         format.html { render action: "new", error: "Couldn't create the drink. Error: #{@drink.errors} Status: #{:unprocessable_entity}" }
         format.json { render json: @drink.errors, status: :unprocessable_entity }
@@ -55,7 +59,7 @@ class DrinksController < ApplicationController
     @drink = Drink.find(params[:id])
     if @drink.update_attributes(drink_params)
       flash[:success] = "Drink was successfully updated."
-      no_resp_redir @drink
+      no_resp_redir drinks_url
     else
       respond_to do |format|
         format.html { render action: "edit", error: "Couldn't update the drink. Error: #{@drink.errors} Status: #{:unprocessable_entity}" }
