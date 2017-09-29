@@ -77,6 +77,7 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.1.4.1)
       execjs
+    bcrypt (3.1.11)
     builder (3.2.3)
     climate_control (0.2.0)
     cocaine (0.5.8)
@@ -92,6 +93,12 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
+    devise (4.3.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.2)
+      responders
+      warden (~> 1.2.3)
     docile (1.1.5)
     erubi (1.6.1)
     erubis (2.7.0)
@@ -146,6 +153,7 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    orm_adapter (0.5.0)
     paperclip (5.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -188,6 +196,9 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     ref (2.0.0)
+    responders (2.4.0)
+      actionpack (>= 4.2.0, < 5.3)
+      railties (>= 4.2.0, < 5.3)
     ruby-prof (0.16.2)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
@@ -232,6 +243,8 @@ GEM
     unicorn (5.3.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    warden (1.2.7)
+      rack (>= 1.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -246,6 +259,7 @@ DEPENDENCIES
   bootswatch-rails!
   codeclimate-test-reporter (~> 1)
   coffee-rails
+  devise
   faker
   favicon_maker
   formtastic
@@ -267,4 +281,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.13.6
+   1.15.4
