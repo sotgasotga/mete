@@ -8,6 +8,9 @@ Mete::Application.routes.draw do
   resources :users do
     member do
       get 'deposit'
+      get 'transaction'
+      get 'transaction/:to_id' => 'users#transaction_amount', :as => :transaction_to
+      patch 'transaction/:to_id' => 'users#transaction_patch'
       patch 'deposit' => 'users#deposit_patch'
       get 'retrieve'
       patch 'retrieve' => 'users#retrieve_patch'

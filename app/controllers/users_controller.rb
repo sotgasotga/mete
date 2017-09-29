@@ -20,6 +20,40 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/transaction
+  # GET /users/1/transaction.json
+  def transaction
+    @users = User.order(active: :desc).order("name COLLATE nocase")
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # GET /users/1/transaction/2
+  # GET /users/1/transaction/2.json
+  def transaction_amount
+    @user = User.find(params[:id])
+    @target = User.find(params[:to_id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # PATCH /users/1/transaction/2
+  # PATCH /users/1/transaction/2.json
+  def transaction_patch
+    @user = User.find(params[:id])
+    @target = User.find(params[:to_id])
+    @user.payment(BigDecimal.new(params[:amount]))
+    @target.deposit(BigDecimal.new(params[:amount]))
+    flash[:success] = "You just transfered some money to #{@target.name} and your new balance is #{@user.balance}."
+    warn_user_if_audit
+    no_resp_redir @user
+  end
+
   # GET /users/new
   # GET /users/new.json
   def new
