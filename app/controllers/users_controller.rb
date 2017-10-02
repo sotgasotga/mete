@@ -114,6 +114,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
+    Audit.create! bank_difference: -@user.balance, difference: 0, drink: 0, user:@user.id
     if @user.destroy
       flash[:success] = "User was successfully deleted."
       no_resp_redir users_url

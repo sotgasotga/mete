@@ -51,7 +51,7 @@
           transfer Money
 %hr
 
-%form{:method => "POST", :action => buy_barcode_user_path}
+%form{:method => "PATCH", :action => buy_barcode_user_path}
   %small
     Buy a drink by scanning a barcode: 
   %input{:name => "barcode"}
@@ -59,4 +59,4 @@
 %hr
 
 .row.drinks
-  = render @drinks, :locals => {:user => @user}
+  = render @drinks, user: @user

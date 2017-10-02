@@ -4,7 +4,10 @@ Mete::Application.routes.draw do
   resources :barcodes
 
   get 'audits' => 'audits#index'
-
+  get 'audits/edit' => 'audits#edit'
+  post 'audits' => 'audits#commit'
+  get 'anonymous' => 'application#anonymous'
+  patch 'anonymous' => 'application#anonymous_buy', :as => :anonymous_buy
   resources :users do
     member do
       get 'deposit'
@@ -15,8 +18,8 @@ Mete::Application.routes.draw do
       get 'retrieve'
       patch 'retrieve' => 'users#retrieve_patch'
       get 'payment'
-      get 'buy'
-      post 'buy_barcode'
+      patch 'buy'
+      patch 'buy_barcode'
     end
     collection do
       get 'stats'
