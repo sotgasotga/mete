@@ -41,8 +41,8 @@ class AuditsController < ApplicationController
     @register_balance = Audit.sum(:difference)
     @audit = Audit.new
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
+      format.html # # edit.html.haml
+      format.json { render json: @audit }
     end
   end
 
