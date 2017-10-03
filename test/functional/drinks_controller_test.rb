@@ -17,7 +17,7 @@ class DrinksControllerTest < ActionController::TestCase
   end
 
   test "should create drink" do
-    assert_difference('Drink.count') do
+    assert_difference('Drink.count', 1) do
       post :create, params: {drink: { bottle_size: @drink.bottle_size, caffeine: @drink.caffeine, price: @drink.price, logo_file_name: @drink.logo_file_name, name: @drink.name }}
     end
 
@@ -41,9 +41,18 @@ class DrinksControllerTest < ActionController::TestCase
 
   test "should destroy drink" do
     assert_difference('Drink.count', -1) do
-      delete :destroy, params: {id: @drink}
+      delete :destroy, params: {id: drinks(:two)}
     end
 
+    assert_redirected_to drinks_path
+  end
+  
+  test "should destroy drink with barcodes" do
+    assert_difference('Drink.count', -1) do
+      assert_difference('Barcode.count', -1) do
+        delete :destroy, params: {id: @drink}
+      end
+    end
     assert_redirected_to drinks_path
   end
 end

@@ -1,23 +1,17 @@
 class UsersController < ApplicationController
+  include ApplicationHelper
+  
   # GET /users
-  # GET /users.json
   def index
     @users = User.order(active: :desc).order("name COLLATE nocase")
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
+    # index.html.haml
   end
 
   # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
     @drinks = Drink.order(active: :desc).order("name COLLATE nocase")
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
+    # show.html.haml
   end
 
   # GET /users/1/transaction
@@ -55,37 +49,28 @@ class UsersController < ApplicationController
   end
 
   # GET /users/new
-  # GET /users/new.json
   def new
     @user = User.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
-    end
+    # new.html.haml
   end
 
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    # edit.html.haml
   end
 
   # POST /users
-  # POST /users.json
   def create
     @user = User.new(user_params)
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, success: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new", error: "Couldn't create the user. Error: #{@user.errors} Status: #{:unprocessable_entity}" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      redirect_to @user, success: 'User was successfully created.'
+    else
+      render action: "new", error: "Couldn't create the user. Error: #{@user.errors} Status: #{:unprocessable_entity}"
     end
   end
 
   # PATCH /users/1
-  # PATCH /users/1.json
   def update
     @user = User.find(params[:id])
     @old_audit_status = @user.audit
@@ -103,15 +88,11 @@ class UsersController < ApplicationController
       flash[:success] = "User was successfully updated."
       no_resp_redir @user
     else
-      respond_to do |format|
-        format.html { render action: "edit", error: "Couldn't update the user. Error: #{@user.errors} Status: #{:unprocessable_entity}" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+      render action: "edit", error: "Couldn't update the user. Error: #{@user.errors} Status: #{:unprocessable_entity}"
     end
   end
 
   # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
     Audit.create! bank_difference: -@user.balance, difference: 0, drink: 0, user:@user.id
@@ -119,10 +100,7 @@ class UsersController < ApplicationController
       flash[:success] = "User was successfully deleted."
       no_resp_redir users_url
     else
-      respond_to do |format|
-        format.html { redirect_to users_url, error:  "Couldn't delete the user. Error: #{@user.errors} Status: #{:unprocessable_entity}" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+      redirect_to users_url, error:  "Couldn't delete the user. Error: #{@user.errors} Status: #{:unprocessable_entity}"
     end
   end
 
@@ -151,7 +129,7 @@ end
   def deposit_patch
     @user = User.find(params[:id])
     @user.deposit(BigDecimal.new(params[:amount]))
-    flash[:success] = "You just deposited some money and your new balance is #{@user.balance}. Thank you."
+    flash[:success] = "You just deposited some money and your new balance is #{show_amount(@user.balance)}. Thank you."
     warn_user_if_audit
     no_resp_redir @user
   end
@@ -167,7 +145,6 @@ end
   end
 
   # GET /users/1/buy?drink=5
-  # GET /users/1/buy.json?drink=5
   def buy
     @user = User.find(params[:id])
     @drink = Drink.find(params[:drink])
@@ -175,17 +152,11 @@ end
   end
   
   # POST /users/1/buy_barcode
-  # POST /users/1/buy_barcode.json
   def buy_barcode
     @user = User.find(params[:id])
     unless Barcode.where(id: params[:barcode]).exists?
-      respond_to do |format|
-        format.html do
-          flash[:danger] = "No drink found with this barcode."
-          redirect_to @user
-        end
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+      flash[:danger] = "No drink found with this barcode."
+      redirect_to @user
     else
       @drink = Drink.find(Barcode.find(params[:barcode]).drink)
       buy_drink
@@ -193,11 +164,10 @@ end
   end
 
   # GET /users/1/pay?amount=1.5
-  # GET /users/1/pay.json?amount=1.5
   def payment
     @user = User.find(params[:id])
     @user.payment(BigDecimal.new(params[:amount]))
-    flash[:success] = "You just bought a drink and your new balance is #{@user.balance}. Thank you."
+    flash[:success] = "You just bought a drink and your new balance is #{show_amount(@user.balance)}. Thank you."
     if (@user.balance < 0) then
       flash[:warning] = "Your balance is below zero. Remember to compensate as soon as possible."
     end
@@ -206,14 +176,10 @@ end
   end
 
   # GET /users/stats
-  # GET /users/stats.json
   def stats
     @user_count = User.count
     @balance_sum = User.sum(:balance)
-    respond_to do |format|
-      format.html { }
-      format.json { render json: { user_count: @user_count, balance_sum: @balance_sum } }
-    end
+    # stats.html.haml
   end
 
   private
@@ -227,9 +193,9 @@ end
 
     @user.buy(@drink, bar)
     unless bar
-      flash[:success] = "You just bought a drink not in bar and your new balance is #{@user.balance}. Thank you."
+      flash[:success] = "You just bought a drink not in bar and your new balance is #{show_amount(@user.balance)}. Thank you."
     else
-      flash[:success] = "You just bought a drink in bar and your new balance is #{@user.balance}. Thank you."
+      flash[:success] = "You just bought a drink in bar and your new balance is #{show_amount(@user.balance)}. Thank you."
     end
     if (not bar and @user.balance < 0) then
       flash[:warning] = "Your balance is below zero. Remember to compensate as soon as possible."

@@ -5,7 +5,6 @@ class AuditsController < ApplicationController
      sign_out(current_admin) if current_admin
   end
   # GET /audits
-  # GET /audits.json
   def index
     if params[:start_date] and params[:end_date]
       @start_date = parse_date params[:start_date]
