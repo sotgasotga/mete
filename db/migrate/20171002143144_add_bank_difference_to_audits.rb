@@ -1,5 +1,6 @@
 class AddBankDifferenceToAudits < ActiveRecord::Migration[5.1]
   def change
-    add_column :audits, :bank_difference, :decimal, precision: 20, scale: 2
+    rename_column :audits, :difference, :bank_difference
+    add_column :audits, :difference, :decimal, precision: 20, scale: 2, default: 0.0
   end
 end
