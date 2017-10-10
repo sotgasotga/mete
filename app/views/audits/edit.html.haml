@@ -2,10 +2,9 @@
   %h1
   Change cash register balance
 .page-body
-  
-= semantic_form_for @audit, :html => { :class => 'form-horizontal' } do |f|
-  = f.semantic_errors
-  = f.inputs  do
-    = f.input :difference, as: :number, hint: 'enter the change you want to make'
-  = f.actions do
-    = f.action :submit
+
+  = form_for :anything, url: "/audits/edit" do |form|
+    = form.number_field :balance, value: @register_balance
+    enter new balance here
+    .br
+    = submit_tag("change balance")

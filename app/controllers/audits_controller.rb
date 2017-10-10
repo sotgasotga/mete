@@ -39,7 +39,6 @@ class AuditsController < ApplicationController
 
   def edit
     @register_balance = Audit.sum(:difference)
-    @audit = Audit.new
     respond_to do |format|
       format.html # # edit.html.haml
       format.json { render json: @audit }
@@ -48,7 +47,7 @@ class AuditsController < ApplicationController
 
    def commit
     puts params
-    @change = params[:audit][:difference].to_i - Audit.sum(:difference)
+    @change = params[:anything][:balance].to_i - Audit.sum(:difference)
     if Audit.create!(bank_difference: 0, difference: @change, drink: 0, user: nil) then
       flash[:success] = "You just changed the cash register balance the new balance is now #{Audit.sum(:difference)}"
     else

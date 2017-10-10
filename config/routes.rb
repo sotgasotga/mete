@@ -5,7 +5,7 @@ Mete::Application.routes.draw do
 
   get 'audits' => 'audits#index'
   get 'audits/edit' => 'audits#edit'
-  post 'audits' => 'audits#commit'
+  post 'audits/edit' => 'audits#commit'
   get 'anonymous' => 'application#anonymous'
   patch 'anonymous' => 'application#anonymous_buy', :as => :anonymous_buy
   resources :users do
