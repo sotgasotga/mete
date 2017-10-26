@@ -44,7 +44,8 @@
           = show_amount audit.bank_difference
         %td
           = show_amount audit.difference
-        %td n/a
+        %td
+          = drink_name audit.drink
     - else
       %tr.error
         %td= audit.created_at
@@ -53,4 +54,4 @@
         %td
           = show_amount audit.difference
         %td
-          = link_to_drink_if_exists audit.drink
+          = drink_name "n/a"
