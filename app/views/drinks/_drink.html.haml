@@ -12,15 +12,23 @@
   .modal-dialog{:role => "document"}
     .modal-content
       .modal-header
-        %h1.modal-title{style:'text-align:center;'} Bar oder vom Guthaben?
+        %h1.modal-title{style:'text-align:center;'} 
+        - if user
+          = "Bar oder vom Guthaben?"
+        - else
+          = "Are you sure?"
       .modal-body
-        = link_to(buy_user_path(@user, :drink => drink.id, :bar => true) || '#') do
+        = link_to(generate_buy_path(user, drink, true) || '#', method: :patch) do
           .panel.panel-default.text-center
             .panel-body
               %h2
-                %strong In Bar
-        = link_to(buy_user_path(@user, :drink => drink.id, :bar => false) || '#') do
-          .panel.panel-default.text-center
-            .panel-body
-              %h2
-                %strong Vom Guthaben
+                - if user
+                  %strong In Bar
+                - else
+                  %strong Yes
+        - if user
+          = link_to(buy_user_path(user, :drink => drink.id, :bar => false) || '#', method: :patch) do
+            .panel.panel-default.text-center
+              .panel-body
+                %h2
+                  %strong Vom Guthaben

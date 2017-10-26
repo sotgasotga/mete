@@ -1,4 +1,7 @@
 - model_class = Audit
+- content_for :actions do
+  %li
+    = link_to 'Edit Cash Balance', "/audits/edit"
 
 = form_tag({}, { :class => 'form-horizontal', :method => :get }) do
   .control-group
@@ -18,13 +21,7 @@
 
 
 %p
-  %strong Sum of all deposits made:
-  = @deposits_sum
-%p
-  %strong Sum of all payments made:
-  = @payments_sum
-%p
-  %strong Sum of all transactions:
+  %strong Cash Register Balance:
   = @sum
 
 %p
@@ -36,12 +33,15 @@
 %table.table.table-striped.table-bordered.table-condensed
   %tr
     %th Timestamp
-    %th Amount
+    %th Bank Difference
+    %th Cash Register Difference
     %th Drink
   - @audits.each do |audit|
     - if audit.difference > 0
       %tr.success
         %td= audit.created_at
+        %td
+          = show_amount audit.bank_difference
         %td
           = show_amount audit.difference
         %td n/a
@@ -49,10 +49,8 @@
       %tr.error
         %td= audit.created_at
         %td
+          = show_amount audit.bank_difference
+        %td
           = show_amount audit.difference
         %td
-          - drink = Drink.find_by(:id => audit.drink)
-          - if drink.nil?
-            n/a
-          - else
-            = drink.name
+          = link_to_drink_if_exists audit.drink

@@ -1,6 +1,10 @@
 class AuditsController < ApplicationController
+
+  before_action :authenticate_admin!, only: [:edit, :commit]
+  after_action only: [:commit] do
+     sign_out(current_admin) if current_admin
+  end
   # GET /audits
-  # GET /audits.json
   def index
     if params[:start_date] and params[:end_date]
       @start_date = parse_date params[:start_date]
@@ -19,8 +23,8 @@ class AuditsController < ApplicationController
     end
 
     @sum = @audits.sum(:difference)
-    @payments_sum = @audits.payments.sum(:difference).abs
-    @deposits_sum = @audits.deposits.sum(:difference)
+    #@payments_sum = @audits.payments.sum(:difference).abs
+    #@deposits_sum = @audits.deposits.sum(:difference)
 
     respond_to do |format|
       format.html #index.html.haml
@@ -32,6 +36,26 @@ class AuditsController < ApplicationController
       }}
     end
   end
+
+  def edit
+    @register_balance = Audit.sum(:difference)
+    respond_to do |format|
+      format.html # # edit.html.haml
+      format.json { render json: @audit }
+    end
+  end
+
+   def commit
+    puts params
+    @change = params[:anything][:balance].to_i - Audit.sum(:difference)
+    if Audit.create!(bank_difference: 0, difference: @change, drink: 0, user: nil) then
+      flash[:success] = "You just changed the cash register balance the new balance is now #{Audit.sum(:difference)}"
+    else
+      flash[:error] = "You couldn't change the cash register balance the balance is still #{Audit.sum(:difference)}"
+    end
+    no_resp_redir audits_url
+  end
+
 
   private
 

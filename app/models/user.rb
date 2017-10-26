@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
 
   after_save do |user|
-    Audit.create! difference: user.balance - user.balance_before_last_save, drink: @purchased_drink.nil? ? 0 : @purchased_drink.id, user: user.audit? ? user.id : nil
+    Audit.create! bank_difference: user.balance - user.balance_before_last_save, difference: @purchased_drink.nil? ? 0 : @purchased_drink.price, drink: @purchased_drink.nil? ? 0 : @purchased_drink.id, user: user.audit? ? user.id : nil
   end
 
   def deposit(amount)

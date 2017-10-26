@@ -19,8 +19,6 @@
       %tr
         %td= barcode.id
         %td
-          - drink = Drink.find_by(:id => barcode.drink)
-          = link_to drink do
-            = drink.name
+          = link_to_drink_if_exists barcode.drink
         %td
           = link_to 'delete', barcode, method: :delete, :data => {confirm: "Really delete this barcode?"}

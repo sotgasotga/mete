@@ -15,9 +15,6 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'bootstrap-sass', :github => 'thomas-mcdonald/bootstrap-sass'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', :platforms => :ruby
-
 gem 'uglifier', '>= 1.0.3'
 
 gem 'jquery-rails'
@@ -50,6 +47,7 @@ group :development do
   gem 'faker'
   gem 'rails-perftest', :github => 'rails/rails-perftest'
   gem 'ruby-prof'
+  gem 'spring'
 end
 
 group :production do

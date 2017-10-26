@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928121355) do
+ActiveRecord::Schema.define(version: 20171002143144) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -31,9 +31,10 @@ ActiveRecord::Schema.define(version: 20170928121355) do
 
   create_table "audits", force: :cascade do |t|
     t.datetime "created_at"
-    t.decimal "difference", precision: 20, scale: 2, default: "0.0"
     t.integer "drink"
     t.integer "user"
+    t.decimal "bank_difference", precision: 20, scale: 2
+    t.decimal "difference", precision: 20, scale: 2, default: "0.0"
   end
 
   create_table "barcodes", id: :string, force: :cascade do |t|
