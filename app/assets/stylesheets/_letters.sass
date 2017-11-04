@@ -1,0 +1,36 @@
+.letters
+  height: calc(100% - 50px)
+  position: fixed
+  top: 50px
+
+  &,
+  & .filter-letter
+    display: flex
+    flex-direction: column
+
+  &.left
+    left: 0
+
+  &.right
+    right: 0
+
+  .filter-letter
+    background: darken(grey, 20%)
+    cursor: pointer
+    flex-grow: 1
+    font-size: 1.1em
+    font-weight: bold
+    justify-content: center
+    line-height: 100%
+    padding: 0 25px
+    text-align: center
+
+    &:nth-child(2n)
+      background: darken(grey, 18%)
+
+    &:last-child
+      border-bottom: 0
+
+    &.active
+      background: pink
+      color: #123
