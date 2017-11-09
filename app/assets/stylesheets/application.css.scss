@@ -34,3 +34,11 @@ img.disabled {
   flex: 1 1 0;
   overflow: hidden;
 }
+
+a.btn {
+  &,
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
+}

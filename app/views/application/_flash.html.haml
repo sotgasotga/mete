@@ -1,5 +1,8 @@
 - flash.each do |level, message|
-  .alert(class="alert-#{level}")
+  .alert.dismissable-alert(class="alert-#{level}")
     %p
       %strong= "#{level}!"
-      = message
+      - unless message.is_a? Hash
+        = sanitize message, tags: %w(a), attributes: %w(href rel data-confirm data-method class)
+      - else
+        = render message[:view], message

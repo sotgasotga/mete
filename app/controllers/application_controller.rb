@@ -24,8 +24,8 @@ class ApplicationController < ActionController::Base
       @drink.save!
       flash[:info] = "The drink you just bought has been set to 'available'."
     end
-    Audit.create! bank_difference: 0, difference: @drink.price, drink: @drink.nil? ? 0 : @drink.id, user: nil
-    flash[:success] = "You just bought a drink. Thank you."
+    audit = Audit.create! bank_difference: 0, difference: @drink.price, drink: @drink.nil? ? 0 : @drink.id, user: nil
+    flash[:success] = { view: 'bought_drink_flash', audit: audit }
     no_resp_redir users_url
   end
 

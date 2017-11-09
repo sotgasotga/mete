@@ -3,9 +3,13 @@ Mete::Application.routes.draw do
   resources :drinks
   resources :barcodes
 
-  get 'audits' => 'audits#index'
-  get 'audits/edit' => 'audits#edit'
-  post 'audits/edit' => 'audits#commit'
+  resources :audits, only: [:index, :destroy] do
+    collection do
+      get 'edit' => 'audits#edit'
+      post 'edit' => 'audits#commit'
+    end
+  end
+
   get 'anonymous' => 'application#anonymous'
   patch 'anonymous' => 'application#anonymous_buy', :as => :anonymous_buy
   resources :users do

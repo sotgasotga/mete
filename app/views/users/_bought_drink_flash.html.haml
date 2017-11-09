@@ -1,0 +1,24 @@
+You just bought a drink. Thank you.
+
+%button.btn.btn-danger.btn-sm{type: "button", "data-toggle": "modal", "data-target": "#undoAuditConfirm"}
+  Undo transaction
+
+- content_for :modals do
+  .modal.fade#undoAuditConfirm{tabindex: -1, role: "dialog", "aria-labelledby": "undoAuditConfirmLabel"}
+    .modal-dialog{role: "document"}
+      .modal-content
+        .modal-header
+          %button.close{type: "button", "data-dismiss": "modal", "aria-label": "Close"}
+            %span{"aria-hidden": true}
+              &times;
+          %h4.modal-title#undoAuditConfirmLabel
+            Really undo transaction?
+
+          .modal-body
+            Do you really want to undo the transaction?
+
+          .modal-footer
+            %button.btn.btn-default{type: "button", "data-dismiss": "modal"}
+              Close
+            = link_to "Ok", audit_path(audit), method: :delete, class: "btn btn-danger"
+
