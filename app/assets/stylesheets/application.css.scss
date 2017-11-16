@@ -58,3 +58,19 @@ a.btn {
   padding-left: 25px;
   padding-right: 25px;
 }
+
+.User {
+  height: 125px;
+
+  .panel-header {
+    position: absolute;
+    width: calc(100% - 45px);
+    overflow: hidden;
+    margin-left: 15px;
+    word-wrap: break-word;
+  }
+
+  .panel-body {
+    margin-top: 33px;
+  }
+}
