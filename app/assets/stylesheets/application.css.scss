@@ -35,13 +35,26 @@ img.disabled {
   overflow: hidden;
 }
 
-.container{
-  display: flex;
-}
 a.btn {
   &,
   &:hover,
   &:active {
     text-decoration: none;
   }
+}
+.user-view{
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.panel-default{
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.cash-button{
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
 }

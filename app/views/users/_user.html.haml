@@ -1,6 +1,6 @@
 - link = local_assigns.fetch :transaction_from, user
 -  unless link == user then link = "transaction/" + (user.id.to_s) end
-.col-xs-4.col-sm-3.col-md-2.col-sm-2.col-lg-2{"data-name" => user.name, class: "User"}
+.col-xs-3.col-sm-2.col-md-2.col-lg-2{"data-name" => user.name, class: "User"}
   = link_to (link), :title => user.name do
     .panel.panel-default.text-center
       .panel-header

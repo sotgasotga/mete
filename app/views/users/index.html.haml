@@ -9,11 +9,11 @@
 .letters.right
   - ('N'..'Z').each do |letter|
     .filter-letter= letter
-.row
-  .col-xs-3.col-sm-1.col-md-1.col-sm-1.col-lg-1
-  = link_to ("/anonymous"), :title => "Cash Payment" do
-    .panel.panel-default.text-center
-      .panel-body
-        %h6= "Cash Payment"
-.row{id: "user_preview"}
+.row{class: "cash-button"}
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    = link_to ("/anonymous"), :title => "Cash Payment" do
+      .panel.panel-default.text-center
+        .panel-body
+          %h6= "Cash Payment"
+.row{id: "user_preview", class: "user-view"}
   = render 'user_view', users: @users
