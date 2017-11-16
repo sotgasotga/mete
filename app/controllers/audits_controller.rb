@@ -56,6 +56,16 @@ class AuditsController < ApplicationController
     no_resp_redir audits_url
   end
 
+  def destroy
+    @audit = Audit.find(params[:id])
+    if @audit.destroy
+      flash[:success] = "Transaction successfully undone"
+      no_resp_redir users_url
+    else
+      redirect_to users_url, error:  "Error while deleting transaction"
+    end
+  end
+
 
   private
 

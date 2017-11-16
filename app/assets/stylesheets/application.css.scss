@@ -4,6 +4,8 @@
 @import "formtastic-bootstrap";
 @import "bootswatch/slate/bootswatch";
 
+@import "letters";
+
 // make room for navigation bar
 body { padding-top: 70px; }
 
@@ -35,4 +37,11 @@ img.disabled {
 
 .container{
   display: flex;
+}
+a.btn {
+  &,
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
 }

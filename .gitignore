@@ -31,3 +31,5 @@
 coverage
 public/assets
 public/.htpasswd
+
+.tern-port

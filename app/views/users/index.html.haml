@@ -2,8 +2,13 @@
 - content_for :actions do
   %li
     = link_to 'new user', [:new, :user]
-.row
-  %input{type: :text, name: :searchtext, onkeyup:"refresh_users(this.value)"}
+.text-center.filter-label
+.letters.left
+  - ('A'..'M').each do |letter|
+    .filter-letter= letter
+.letters.right
+  - ('N'..'Z').each do |letter|
+    .filter-letter= letter
 .row
   .col-xs-3.col-sm-1.col-md-1.col-sm-1.col-lg-1
   = link_to ("/anonymous"), :title => "Cash Payment" do
@@ -12,12 +17,3 @@
         %h6= "Cash Payment"
 .row{id: "user_preview"}
   = render 'user_view', users: @users
-
-:javascript
-  function refresh_users(text) {
-    $("#user_preview *").show()
-    if(text !== ""){
-      $("#user_preview .User:not(div[name^='"+text+"'])").hide()
-    }
-
-  }
