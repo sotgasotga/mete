@@ -4,12 +4,12 @@
 
 li.drink {
   background: rgba(255,255,255,0.3);
-  display: inline-block;
+  display: inline-flex;
   height: 160px;
   list-style-type: none;
   width: 160px;
   a {
-    display: block;
+    display: flex;
   }
   img {
     max-height: 140px;
