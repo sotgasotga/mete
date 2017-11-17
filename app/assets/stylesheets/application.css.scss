@@ -22,12 +22,39 @@ img.disabled {
   //see http://stackoverflow.com/a/11842712
   filter: grayscale(100%) contrast(30%);
 }
-
-.drink-panel {
+  
+.drinks{
   display: flex;
-  flex-direction: column;
-  height: 165px;
-  width: 160px;
+  flex-flow: row wrap;
+  justify-content: center;
+  .drink{
+    width: 120px;
+    .drink-panel {
+      .panel-header{
+        margin-top: -5px;
+        height: 15px;
+      }
+      display: flex;
+      flex-direction: column;
+      height: 100px;
+      width: 100px;
+      .panel-footer{
+        padding: 0px;
+      }
+      .panel-body{
+        display: flex;
+        align-content: center;
+        justify-content: space-around;
+        padding: 0;
+        padding-top: 20px;
+        .drink-img{
+          height: 100%;
+          width: auto;
+          padding-bottom: 1px;
+        }
+      }
+    }
+  }
 }
 
 .panel-body {

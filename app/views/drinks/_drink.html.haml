@@ -1,10 +1,10 @@
-.col-xs-4.col-sm-3.col-md-2.col-lg-2
+.drink
   %a{"data-toggle" => "modal", "data-target" => "#buyModal#{drink.id}"}
     .drink-panel.panel.panel-default.text-center
       .panel-header
         %h6= drink.name
       .panel-body
-        = image_tag drink.logo(:thumb), alt: drink.name, class: drink.active? ? "" : "disabled"
+        = image_tag drink.logo(:thumb), alt: "", class: "drink-img"
       .panel-footer
         = show_amount drink.price
 
