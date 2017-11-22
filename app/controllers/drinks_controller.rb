@@ -18,6 +18,9 @@ class DrinksController < ApplicationController
   # GET /drinks/new
   def new
     @drink = Drink.new
+    @drink.price = 1.2
+    @drink.bottle_size = 1
+    @drink.caffeine = 0
     # new.html.haml
   end
 
@@ -30,12 +33,11 @@ class DrinksController < ApplicationController
   # POST /drinks
   def create
     @drink = Drink.new(drink_params)
-    respond_to do |format|
-      if @drink.save
-        redirect_to drinks_url, notice: 'Drink was successfully created.'
-      else
-        render action: "new", error: "Couldn't create the drink. Error: #{@drink.errors} Status: #{:unprocessable_entity}"
-      end
+    if @drink.save
+      flash[:success] = "Drink was successfully created."
+      no_resp_redir drinks_url
+    else
+      render action: "new", error: "Couldn't create the drink. Error: #{@drink.errors} Status: #{:unprocessable_entity}"
     end
   end
 
