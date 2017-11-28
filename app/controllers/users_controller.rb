@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     @target.deposit(BigDecimal.new(params[:amount]))
     flash[:success] = "You just transfered some money to #{@target.name} and your new balance is #{@user.balance}."
     warn_user_if_audit
-    no_resp_redir @user
+    redirect_to request.referrer
   end
 
   # GET /users/new
@@ -131,7 +131,7 @@ end
     @user.deposit(BigDecimal.new(params[:amount]))
     flash[:success] = "You just deposited some money and your new balance is #{show_amount(@user.balance)}. Thank you."
     warn_user_if_audit
-    no_resp_redir @user
+    redirect_to request.referrer
   end
 
   # PATCH /users/1/retrieve?amount=100
@@ -141,7 +141,7 @@ end
     @user.payment(BigDecimal.new(params[:amount]))
     flash[:success] = "You just retrieved some money and your new balance is #{@user.balance}. Thank you."
     warn_user_if_audit
-    no_resp_redir @user
+    redirect_to request.referrer
   end
 
   # GET /users/1/buy?drink=5
