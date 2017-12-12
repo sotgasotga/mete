@@ -4,7 +4,7 @@
 .page-body
 
   = form_for :anything, url: "/audits/edit" do |form|
-    = form.number_field :balance, value: @register_balance
+    = form.number_field :balance, value: @register_balance, step: 0.01
     enter new balance here
     .br
     = submit_tag("change balance")
