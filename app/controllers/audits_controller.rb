@@ -47,7 +47,7 @@ class AuditsController < ApplicationController
 
    def commit
     puts params
-    @change = params[:anything][:balance].to_i - Audit.sum(:difference)
+    @change = params[:anything][:balance].to_f - Audit.sum(:difference)
     if Audit.create!(bank_difference: 0, difference: @change, drink: 0, user: nil) then
       flash[:success] = "You just changed the cash register balance the new balance is now #{Audit.sum(:difference)}"
     else
