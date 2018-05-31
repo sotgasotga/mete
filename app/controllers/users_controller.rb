@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     @user = User.find(params[:id])
-    @drinks = Drink.order(active: :desc).order("name COLLATE nocase")
+    @drinks = Drink.order("name COLLATE nocase").where(active: true)
     # show.html.haml
   end
 
