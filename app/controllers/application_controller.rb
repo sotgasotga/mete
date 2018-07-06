@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   def anonymous
     @user = 0
-    @drinks = Drink.order(active: :desc).order("name COLLATE nocase")
+    @drinks = Drink.order("name COLLATE nocase").where(active: true)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
