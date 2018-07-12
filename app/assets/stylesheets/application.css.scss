@@ -53,6 +53,12 @@ img.disabled {
     }
   }
 }
+.ignoreclicks{
+  pointer-events: none;
+  a{
+    color: grey;
+  }
+}
 
 .panel-body {
   flex: 1 1 0;

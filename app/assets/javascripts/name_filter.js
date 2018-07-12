@@ -14,6 +14,11 @@ $(() => {
     refresh_users(filter);
   });
 
+  $('.buybutton').on('click', e => {
+    const $el = $(e.currentTarget.parentElement.parentElement);
+    $el.addClass('ignoreclicks');
+  });
+
   function refresh_users(filter) {
     $('#user_preview *').show();
     if(filter !== ''){

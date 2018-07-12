@@ -19,7 +19,7 @@
           = "Are you sure?"
       .modal-body
         = link_to(generate_buy_path(user, drink, true) || '#', method: :patch) do
-          .panel.panel-default.text-center
+          .panel.panel-default.text-center.buybutton
             .panel-body
               %h2
                 - if user
@@ -28,7 +28,7 @@
                   %strong Yes
         - if user
           = link_to(buy_user_path(user, :drink => drink.id, :bar => false) || '#', method: :patch) do
-            .panel.panel-default.text-center
+            .panel.panel-default.text-center.buybutton
               .panel-body
                 %h2
                   %strong Vom Guthaben
