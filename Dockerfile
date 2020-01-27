@@ -4,7 +4,6 @@ RUN groupadd -r app && useradd -r -d /app -g app app
 COPY . /app
 WORKDIR /app
 ENV RAILS_ENV=production
-VOLUME var
 RUN chown -R app:app /app
 USER app
 RUN bundle install && bundle exec rake assets:precompile
