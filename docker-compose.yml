@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mete:
+    build: .
+    ports:
+      - 127.0.0.1:8080:8080
+    volumes:
+      - /var/docker-services/gorden/var:/app/var
+      - gordendata:/app/public/system/drinks
+
+volumes:
+  gordendata:
